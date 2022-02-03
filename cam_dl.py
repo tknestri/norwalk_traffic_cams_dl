@@ -2,8 +2,7 @@ from numpy import loadtxt
 import wget
 import time
 import os
-
-last_sec_dlded = 61
+from urllib.error import HTTPError
 
 # load urls from file into list urls_list
 urls_list = loadtxt('urls.txt', dtype="str")
@@ -20,28 +19,45 @@ def load_urls():
   urls_list = loadtxt('urls.txt', dtype="str")
   print(urls_list[0])
 
-# test case
-url0 = "https://ie.trafficland.com/v2.0/8290/huge?system=weatherbug-cmn&pubtoken=dca193d631f338175f12fbf81a52cbff77dd128633e2cdb45be114e5b3427802&refreshRate=2000&rnd=1643668023215"
-
 def dtstamp_str():
     return str(time.strftime("%Y%m%d-%H%M%S"))
 
 #note - images are updated in 2s intervals ex. 0,2,4,6 in real time, so get all your downloads in then
 def get_img():
+
   global last_sec_dlded
   last_sec_dlded = int(time.strftime("%S"))
-  # if last_sec_dlded != int(time.strftime("%S"))-1 & int(time.strftime("%S"))%2 == 0:
+
   if int(time.strftime("%S"))%2 == 0:
-    time.sleep(1)
-    print(last_sec_dlded)
+    time.sleep(1/2)
+    print(f"[INFO] Downloads initiated at {dtstamp_str()}")
+    t1 = timer()
     for element in urls_list:
-      wget.download(element[0], f"./{element[1]}/{dtstamp_str()}.jpeg")
-    last_sec_dlded = int(time.strftime("%S"))
-    print(last_sec_dlded)
+      try:
+        wget.download(element[0], f"./{element[1]}/{dtstamp_str()}.jpeg", bar=None)
+        print(f"[INFO] Got image for {element[0]}, written to ./{element[1]}/{dtstamp_str()}.jpeg")
+      except HTTPError:
+        print(f"[FATAL] Could not get {element[0]}, the link is most likely dead")
+
+    print(f"[INFO] Download complete, done in {t1.end()}s")
 
     while int(time.strftime("%S"))%2 == last_sec_dlded%2:
       time.sleep(1/100)
 
+
+class timer:
+  """ 
+  Gives elapsed time between two calls
+  timer() - starts the timing
+  timer.end() - stops the timing and returns time (in seconds) since timer() was called 
+  """
+  def __init__(self):
+    self.start = time.time()
+  def end(self):
+    end = time.time()
+    return float(end - self.start)
+
+    
     
 
 

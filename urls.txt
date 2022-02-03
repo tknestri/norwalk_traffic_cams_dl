@@ -1,2 +1,2 @@
-https://ie.trafficland.com/v2.0/8290/huge?system=weatherbug-cmn&pubtoken=d67a4a54b1128d83c6d42d9d8a7b356212344bda2a04e768378d837ff7faca2d&refreshRate=2000&rnd=1643681301696 i95_stuartave
+https://ie.trafficland.com/v2.0/8290/huge?system=weatherbug-cmn&pubtoken=1868fbf88cf694bf0d5c39ee7836dde9b90c27e44badea8d403fd9c5d3573c17&refreshRate=2000 i95_stuartave
 https://ie.trafficland.com/v2.0/8290/huge?system=weatherbug-cmn&pubtoken=d67a4a54b1128d83c6d42d9d8a7b356212344bda2a04e768378d837ff7faca2d&refreshRate=2000&rnd=1643682041344 us7_ctave
