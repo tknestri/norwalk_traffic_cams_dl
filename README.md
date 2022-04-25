@@ -7,7 +7,7 @@ Photos are named in a YYYYMMDD-HHMMSS format
 
 adding sources:
   More feeds can be added using the urls.txt file
-  Formatting is (url) (dirname)
+  Formatting is (url) (name of destination directory)
   ex.
   www.weatherbug.com/dkfjslkfj eastave1
   
